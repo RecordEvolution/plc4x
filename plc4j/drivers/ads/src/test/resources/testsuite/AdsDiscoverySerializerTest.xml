@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+  -->
+<test:testsuite xmlns:test="https://plc4x.apache.org/schemas/parser-serializer-testsuite.xsd"
+                bigEndian="true">
+
+  <name>Beckhoff ADS/AMS Discovery</name>
+
+  <testcase>
+    <name>ADS Discovery Request from 10.10.10.10.1.1</name>
+    <raw>0366147100000000010000000a0a0a0a0101102700000000</raw>
+    <root-type>AdsDiscovery</root-type>
+    <xml>
+      <DiscoveryRequest className="org.apache.plc4x.java.ads.discovery.readwrite.DiscoveryRequest">
+        <operation>DISCOVERY</operation>
+        <direction>REQUEST</direction>
+        <amsNetId className="org.apache.plc4x.java.ads.discovery.readwrite.AmsNetId">
+          <octet1>10</octet1>
+          <octet2>10</octet2>
+          <octet3>10</octet3>
+          <octet4>10</octet4>
+          <octet5>1</octet5>
+          <octet6>1</octet6>
+        </amsNetId>
+      </DiscoveryRequest>
+    </xml>
+  </testcase>
+
+  <testcase>
+    <name>ADS Discovery Response from 192.168.2.221.1.1</name>
+    <raw>036614710000000001000080c0a802dd01011027040000000500</raw>
+    <root-type>AdsDiscovery</root-type>
+    <xml>
+      <DiscoveryResponse className="org.apache.plc4x.java.ads.discovery.readwrite.DiscoveryResponse">
+        <operation>DISCOVERY</operation>
+        <direction>RESPONSE</direction>
+        <amsNetId className="org.apache.plc4x.java.ads.discovery.readwrite.AmsNetId">
+          <octet1>192</octet1>
+          <octet2>168</octet2>
+          <octet3>2</octet3>
+          <octet4>221</octet4>
+          <octet5>1</octet5>
+          <octet6>1</octet6>
+        </amsNetId>
+      </DiscoveryResponse>
+    </xml>
+  </testcase>
+
+  <testcase>
+    <name>ADS Route Request from 10.10.10.10.1.1 via 10.10.10.10 with user='username' and pwd='password'</name>
+    <raw>0366147100000000060000000a0a0a0a01011027050000000c000c0031302e31302e31302e313000070006000a0a0a0a01010d000900757365726e616d65000200090070617373776f72640005000c0031302e31302e31302e313000</raw>
+    <root-type>AdsDiscovery</root-type>
+    <xml>
+      <RouteRequest className="org.apache.plc4x.java.ads.discovery.readwrite.RouteRequest">
+        <operation>ROUTE</operation>
+        <direction>REQUEST</direction>
+        <sender className="org.apache.plc4x.java.ads.discovery.readwrite.AmsNetId">
+          <octet1>10</octet1>
+          <octet2>10</octet2>
+          <octet3>10</octet3>
+          <octet4>10</octet4>
+          <octet5>1</octet5>
+          <octet6>1</octet6>
+        </sender>
+        <address className="org.apache.plc4x.java.ads.discovery.readwrite.AmsMagicString">
+          <text>MTAuMTAuMTAuMTA=</text>
+        </address>
+        <target className="org.apache.plc4x.java.ads.discovery.readwrite.AmsNetId">
+          <octet1>10</octet1>
+          <octet2>10</octet2>
+          <octet3>10</octet3>
+          <octet4>10</octet4>
+          <octet5>1</octet5>
+          <octet6>1</octet6>
+        </target>
+        <username className="org.apache.plc4x.java.ads.discovery.readwrite.AmsMagicString">
+          <text>dXNlcm5hbWU=</text>
+        </username>
+        <password className="org.apache.plc4x.java.ads.discovery.readwrite.AmsMagicString">
+          <text>cGFzc3dvcmQ=</text>
+        </password>
+        <routeName className="org.apache.plc4x.java.ads.discovery.readwrite.AmsMagicString">
+          <text>MTAuMTAuMTAuMTA=</text>
+        </routeName>
+      </RouteRequest>
+    </xml>
+  </testcase>
+
+  <testcase>
+    <name>ADS Route Response with Success status</name>
+    <raw>036614710000000006000080c0a802dd01011027010000000100040000000000</raw>
+    <root-type>AdsDiscovery</root-type>
+    <xml>
+      <RouteResponse className="org.apache.plc4x.java.ads.discovery.readwrite.RouteResponse">
+        <operation>ROUTE</operation>
+        <direction>RESPONSE</direction>
+        <amsNetId className="org.apache.plc4x.java.ads.discovery.readwrite.AmsNetId">
+          <octet1>192</octet1>
+          <octet2>168</octet2>
+          <octet3>2</octet3>
+          <octet4>221</octet4>
+          <octet5>1</octet5>
+          <octet6>1</octet6>
+        </amsNetId>
+        <status>SUCCESS</status>
+      </RouteResponse>
+
+    </xml>
+  </testcase>
+
+  <testcase>
+    <name>ADS Route Response with Failure status</name>
+    <raw>036614710000000006000080c0a802dd01011027010000000100000407000000</raw>
+    <root-type>AdsDiscovery</root-type>
+    <xml>
+      <RouteResponse className="org.apache.plc4x.java.ads.discovery.readwrite.RouteResponse">
+        <operation>ROUTE</operation>
+        <direction>RESPONSE</direction>
+        <amsNetId className="org.apache.plc4x.java.ads.discovery.readwrite.AmsNetId">
+          <octet1>192</octet1>
+          <octet2>168</octet2>
+          <octet3>2</octet3>
+          <octet4>221</octet4>
+          <octet5>1</octet5>
+          <octet6>1</octet6>
+        </amsNetId>
+        <status>FAILURE</status>
+      </RouteResponse>
+    </xml>
+  </testcase>
+
+
+
+</test:testsuite>

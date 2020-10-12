@@ -53,16 +53,17 @@
             [simple     AmsNetId 'sender']
             [reserved   uint 16  '0x1027']
             [reserved   uint 16  '0x0500']
-            [reserved   uint 24  '0x0C00']
-            [simple AmsMagicString 'ip' ]
-            [reserved   uint 16 '0x0007']
+            [reserved   uint 24  '0x000C']
+            [simple AmsMagicString 'address' ]
+            [reserved   uint 16 '0x0700']
             [implicit   uint 8 'amsSize' 'target.lengthInBytes']
+            [const uint 8 'targetPrefix' '0x00']
             [simple AmsNetId 'target']
-            [const uint 16 'usernamePrefix' '0x000D']
+            [const uint 8 'usernamePrefix' '0x0D']
             [simple AmsMagicString 'username']
-            [const uint 16 'passwordPrefix' '0x0002']
+            [const uint 8 'passwordPrefix' '0x02']
             [simple AmsMagicString 'password']
-            [const uint 16 'routePrefix' '0x0005']
+            [const uint 8 'routePrefix' '0x05']
             [simple AmsMagicString 'routeName']
 
         ]
@@ -83,19 +84,11 @@
 ]
 
 [type 'AmsMagicString'
-    [implicit uint 8 'len' 'COUNT(text)']
+    [implicit uint 16 'len' 'COUNT(text) + 1']
     [reserved uint 8 '0x00']
-    [array int 8 'text' COUNT 'len']
+    [array int 8 'text' COUNT 'len - 1']
     [reserved uint 8 '0x00']
 ]
-
-[type 'IPv4Address'
-    [simple     uint        8   'octet1'            ]
-    [simple     uint        8   'octet2'            ]
-    [simple     uint        8   'octet3'            ]
-    [simple     uint        8   'octet4'            ]
-]
-
 
 [type 'AmsNetId'
     [simple     uint        8   'octet1'            ]
