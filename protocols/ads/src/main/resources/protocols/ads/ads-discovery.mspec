@@ -47,7 +47,8 @@
             [simple AmsNetId 'amsNetId']
             [reserved uint 16 '0x1027']
             [reserved uint 16 '0x0400']
-            [reserved uint 32 '0x00000500L']
+            [reserved uint 24 '0x000005L']
+            [simple AmsMagicString 'name']
         ]
         ['Operation.ROUTE', 'Direction.REQUEST' RouteRequest
             [simple     AmsNetId 'sender']
